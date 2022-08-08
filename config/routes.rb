@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
 
+  namespace :public do
+    get 'customers/show'
+    get 'customers/edit'
+    get 'customers/unsubscribe'
+  end
  devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
   sessions: "admin/sessions"
  }
@@ -15,5 +20,11 @@ Rails.application.routes.draw do
   resources :items
   resources :customers
   resources :orders
+ end
+ 
+ scope module: :public do
+  root to: 'homes#top'
+  get 'homes/about'
+  resources :customers
  end
 end
