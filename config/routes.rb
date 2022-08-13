@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   sessions: "admin/sessions"
  }
  
+
+ 
  namespace :admin do
   root to: 'homes#top'
   resources :genres
@@ -12,17 +14,18 @@ Rails.application.routes.draw do
   resources :orders
  end
  
- devise_for :customers,skip: [:passwords], controllers: {
-  registrations: "public/registrations",
-  sessions: 'public/sessions'
- }
- 
  scope module: :public do
   root to: 'homes#top'
   get 'about', to: 'homes#about'
-  resources :customers
   get 'customers/unsubscribe', to: 'customers#unsubscribe'
-  resources :orders
+  patch 'customers/withdraw', to: 'customers#withdraw'
+  resource :customers
   get 'orders/completed', to: 'orders#completed'
+  resources :orders
  end
+ 
+  devise_for :customers,skip: [:passwords], controllers: {
+  registrations: "public/registrations",
+  sessions: 'public/sessions'
+ }
 end
