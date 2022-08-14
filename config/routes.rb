@@ -4,7 +4,10 @@ Rails.application.routes.draw do
   sessions: "admin/sessions"
  }
  
-
+ devise_for :customers,skip: [:passwords], controllers: {
+  registrations: "public/registrations",
+  sessions: 'public/sessions'
+ }
  
  namespace :admin do
   root to: 'homes#top'
@@ -19,13 +22,11 @@ Rails.application.routes.draw do
   get 'about', to: 'homes#about'
   get 'customers/unsubscribe', to: 'customers#unsubscribe'
   patch 'customers/withdraw', to: 'customers#withdraw'
-  resource :customers
+  get 'customers/mypage', to: 'customers#show', as: 'mypage'
+  get 'customers/information/edit', to: 'customers#edit', as: 'edit_customers'
+  patch 'customers/information', to: 'customers#update', as: 'update_customers'
   get 'orders/completed', to: 'orders#completed'
   resources :orders
+  resources :addresses
  end
- 
-  devise_for :customers,skip: [:passwords], controllers: {
-  registrations: "public/registrations",
-  sessions: 'public/sessions'
- }
 end

@@ -13,7 +13,7 @@ class Public::CustomersController < ApplicationController
   
   def update
     current_customer.update(customer_params)
-    redirect_to customers_path(current_customer)
+    redirect_to mypage_path
   end
   
   def withdraw
