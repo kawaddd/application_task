@@ -1,0 +1,32 @@
+<div class="container" style="height: 500px">
+  <div class="row">
+    <div class="col-md-4">
+      <% if @item.image.attached? %>
+        <%= image_tag @item.image, size: "200x200" %>
+      <% else %>
+        <%= image_tag 'no_image', size: "200x200" %>
+      <% end %>
+    </div>
+    <div class="col-md-8">
+      <table>
+        <tr>
+          <td><%= @item.name %></td>
+        </tr>
+        <tr>
+          <td><%= @item.introduction %></td>
+        </tr>
+        <tr>
+          <td><%= @item.add_tax_price.to_s(:delimited) %>(税込)</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2 offset-md-7">
+      
+    </div>
+    <div class="col-md-2">
+      <%= link_to "カートに入れる", cart_item_path(@item) %>
+    </div
+  </div>
+</div>

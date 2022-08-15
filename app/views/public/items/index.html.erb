@@ -1,0 +1,13 @@
+<div class="container" style="height: 500px">
+  <div class="row">
+    <div class="col-md-3 offset-md-1 mb-3">
+      <% if @item.image.attached? %>
+        <%= image_tag @item.image, size: "200x200" %>
+      <% else %>
+        <%= image_tag 'no_image', size: "200x200" %>
+      <% end %>
+    </div>
+  </div>
+  
+</div>
+<%= paginate @items %>

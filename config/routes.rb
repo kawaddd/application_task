@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-
+ 
  devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
   sessions: "admin/sessions"
  }
@@ -28,5 +28,7 @@ Rails.application.routes.draw do
   get 'orders/completed', to: 'orders#completed'
   resources :orders
   resources :addresses
+  resources :items, only: [:index, :show]
+  resources :cart_items
  end
 end
