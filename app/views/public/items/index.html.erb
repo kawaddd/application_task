@@ -1,13 +1,26 @@
 <div class="container" style="height: 500px">
   <div class="row">
     <div class="col-md-3 offset-md-1 mb-3">
-      <% if @item.image.attached? %>
-        <%= image_tag @item.image, size: "200x200" %>
-      <% else %>
-        <%= image_tag 'no_image', size: "200x200" %>
-      <% end %>
+      <h3>商品一覧(全<%=  Item.all.count %>件)</h3>
     </div>
   </div>
-  
+  <div class="row">
+      <% @items.each do |item| %>
+        <div class="col-md-3">
+          <%= link_to item_path(item) do %>
+            <% if item.image.attached? %>
+              <%= image_tag item.image, size: "200x200" %>
+            <% else %>
+              <%= image_tag 'no_image', size: "200x200" %>
+            <% end %>
+          <% end %>
+          <p><%= item.name  %></p>
+          <p>¥<%= item.add_tax_price.to_s(:delimited) %></p>
+        </div>
+      <% end %>
+  </div>
 </div>
-<%= paginate @items %>
+<div>
+  <%= paginate @items %>
+</div>
+
