@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   get 'customers/information/edit', to: 'customers#edit', as: 'edit_customers'
   patch 'customers/information', to: 'customers#update', as: 'update_customers'
   get 'orders/completed', to: 'orders#completed'
+  post 'orders/confirm', to: 'orders#confirm'
   resources :orders
   resources :addresses
   resources :items, only: [:index, :show]
