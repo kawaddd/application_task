@@ -1,1 +1,56 @@
-<h1>Public::Orders#confirm</h1>
+<div class="container" style="height: 500px">
+  <div class="row">
+    <div class="col-md-3 offset-md-1 bg-light mb-3">
+      <h3>注文情報確認</h3>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <table class="table-bordered col-md-8">
+      <thead>
+        <th>商品名</th>
+        <th>単価(税込)</th>
+        <th>数量</th>
+        <th>小計</th>
+        <th></th>
+      </thead>
+      <tbody>
+      <% sum = 0 %>
+      <% @cart_items.each do |cart_item| %>
+      <% sum += cart_item.item.add_tax_price * cart_item.amount %>
+        <tr>
+          <td class="font-weight-bold">
+            <% if cart_item.item.image.attached? %>
+              <%= image_tag cart_item.item.image, size: "50x50" %>
+            <% else %>
+              <%= image_tag 'no_image', size: "50x50" %>
+            <% end %>
+            <%= cart_item.item.name %>
+          </td>
+          <td><%= cart_item.item.add_tax_price.to_s(:delimited) %></td>
+          <td class="col-md-2 offset-md-7">
+            <%= form_with model: cart_item,url: cart_item_path(cart_item),method: :patch do |f| %>
+              <%= f.select :amount, [[1,1], [2,2], [3,3], [4,4], [5,5], [6,6], [7,7], [8,8], [9,9], [10,10]] %>
+              <%= f.submit '変更',class: "btn btn-success" %>
+            <% end %>
+          </td>
+          <td><%= cart_item.subtotal.to_s(:delimited) %></td>
+          <td><%= link_to "削除する",cart_item_path(cart_item),method: :delete,class: "btn btn-danger" %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <table class="table-bordered col-md-3">
+      <tr>
+        <th>送料</th>
+        <td><%= @order.postage.to_s(:delimited) %></td>
+      </tr>
+      <tr>
+        <th>商品合計</th>
+        <td><%= @order..to_s(:delimited) %></td>
+      </tr>
+      <tr>
+        <th>請求金額</th>
+        <td><%= @order.billing_amount.to_s(:delimited) %></td>
+      </tr>
+    </table>
+  </div>
