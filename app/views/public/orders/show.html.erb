@@ -16,15 +16,19 @@
     <table class="col-6 ml-5 table-bordered">
       <tr>
         <th class="bg-light" style="width:20%">注文日</th>
-        <td></td>
+        <td><%= @order.created_at.strftime('%Y/%m/%d') %></td>
       </tr>
       <tr>
         <th class="bg-light">配送先</th>
-        <td></td>
+        <td>
+          <div>〒<%= @order.shipping_postal_code %></div>
+          <div><%= @order.shipping_address %></div>
+          <div><%= @order.shipping_name %></div>
+        </td>
       </tr>
       <tr>
         <th class="bg-light">支払方法</th>
-        <td></td>
+        <td><%= @order.payment_method %></td>
       </tr>
       <tr>
         <th class="bg-light">ステータス</th>
@@ -60,10 +64,10 @@
         <th>小計</th>
       </thead>
       <tbody>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td><%#= @order.name %></td>
+        <td><%#= @order.add_tax_price.to_s(:delimited) %></td>
+        <td><%#= @order.amount %></td>
+        <td><%#= @order.subtotal.to_s(:delimited) %></td>
       </tbody>
     </table>
   </div>
