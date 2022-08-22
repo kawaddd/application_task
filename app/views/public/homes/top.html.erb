@@ -9,4 +9,23 @@
       </h3>
     </div>
   </div>
-</div>
+  <div class="row">
+    <div class="mx-auto my-3">
+      <h3>新着情報</h3>
+    </div>
+  </div>
+  <div class="row">
+      <% @items.each do |item| %>
+        <div class="col-md-3">
+          <%= link_to item_path(item) do %>
+            <% if item.image.attached? %>
+              <%= image_tag item.image, size: "200x200" %>
+            <% else %>
+              <%= image_tag 'no_image', size: "200x200" %>
+            <% end %>
+          <% end %>
+          <p><%= item.name  %></p>
+          <p>¥<%= item.add_tax_price.to_s(:delimited) %></p>
+        </div>
+      <% end %>
+  </div>
