@@ -16,7 +16,7 @@ class Public::OrdersController < ApplicationController
   
   def confirm
     @order = Order.new(order_params)
-    @order.postage = "800"
+    @order.postage = 800
     if params[:order][:select_address]=="0"
       @order.shipping_postal_code = current_customer.postal_code
       @order.shipping_address = current_customer.address
@@ -36,18 +36,29 @@ class Public::OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
     @order.customer_id = current_customer.id
+    @order.postage = 800
     if @order.save
+      @cart_items = current_customer.cart_items.all
+      @cart_items.each do |cart_item|
+        @order_detail = OrderDetail.new
+        @order_detail.order_id = @order.id
+        @order_detail.item_id = cart_item.item_id
+        @order_detail.unit_price = cart_item.item.price * 1.1
+        @order_detail.amount = cart_item.amount
+        @order_detail.save
+      end
       # flash[:notice] = "You have created address successfully."
-      redirect_to orders_confirm_path
+      current_customer.cart_items.destroy_all
+      redirect_to orders_completed_path
     else
-      # @addresses = Address.all
-      # render :index
+       @order = Order.new
+       render :new
     end
   end
   
   private
   
   def order_params
-    params.require(:order).permit(:payment_method, :postal_code, :address, :name)
+    params.require(:order).permit(:payment_method, :shipping_postal_code, :shipping_address, :shipping_name, :billing_amount)
   end
 end
