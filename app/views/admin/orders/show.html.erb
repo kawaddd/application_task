@@ -29,7 +29,7 @@
           <%= form_with model: @order, url: admin_order_path, local:true, method: :patch do |f|%>
           <%#= f.select :status  %>
           <%= f.submit "更新" %>
-          <%end%>
+          <% end %>
         </td>
       </tr>
     </table>
@@ -41,7 +41,13 @@
     <table>
       <tr>
         <td>商品合計</td>
-        <td><%#= @order. %></td>
+        <td>
+          <%# sum = 0%>
+          <%# current_customer.@order.each do |order|%>
+          <%# sum = sum + order.subtotal %>
+          <%# end %>
+          <%#= sum.to_s(:delimited) %>
+        </td>
       </tr>
       <tr>
         <td>送料</td>

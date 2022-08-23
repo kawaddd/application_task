@@ -6,4 +6,8 @@ class OrderDetail < ApplicationRecord
   def subtotal
     item.price * amount
   end
+  
+  def add_tax_price
+    (unit_price * 1.1).floor
+  end
 end
