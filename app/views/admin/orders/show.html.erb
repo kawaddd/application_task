@@ -27,7 +27,7 @@
         <td>注文ステータス</td>
         <td>
           <%= form_with model: @order, url: admin_order_path, local:true, method: :patch do |f|%>
-          <%#= f.select :status  %>
+          <%= f.select :status,Order.statuses_i18n.invert  %>
           <%= f.submit "更新" %>
           <% end %>
         </td>
@@ -42,11 +42,11 @@
       <tr>
         <td>商品合計</td>
         <td>
-          <%# sum = 0%>
-          <%# current_customer.@order.each do |order|%>
-          <%# sum = sum + order.subtotal %>
-          <%# end %>
-          <%#= sum.to_s(:delimited) %>
+          <% sum = 0%>
+          <% @order.order_details.each do |order_detail|%>
+          <% sum = sum + order_detail.subtotal %>
+          <% end %>
+          <%= sum.to_s(:delimited) %>
         </td>
       </tr>
       <tr>
